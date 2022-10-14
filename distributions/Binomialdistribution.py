@@ -1,8 +1,13 @@
+from audioop import avg
 import math
 import matplotlib.pyplot as plt
 from .Generaldistribution import Distribution
 
 class Binomial(Distribution):
+    def __init__(self, mu=0, sigma=1):
+        
+        Distribution.__init__(self, mu, sigma)
+
     """ Binomial distribution class for calculating and 
     visualizing a Binomial distribution.
     
@@ -17,7 +22,7 @@ class Binomial(Distribution):
     TODO: Fill out all TODOs in the functions below
             
     """
-    
+       
     #       A binomial distribution is defined by two variables: 
     #           the probability of getting a positive outcome
     #           the number of trials
@@ -33,6 +38,11 @@ class Binomial(Distribution):
     
     def __init__(self, prob=.5, size=20):
         
+        self.p = prob
+        self.n = size
+        
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
+
         # TODO: store the probability of the distribution in an instance variable p
         # TODO: store the size of the distribution in an instance variable n
         
@@ -50,6 +60,9 @@ class Binomial(Distribution):
         pass            
     
     def calculate_mean(self):
+       
+        self.mean = self.p * self.n
+        return self.mean
     
         """Function to calculate the mean from p and n
         
@@ -69,7 +82,10 @@ class Binomial(Distribution):
 
 
     def calculate_stdev(self):
+        self.stdev = math.sqrt(self.n * self.p * (1 - self.p))
+        return self.stdev
 
+    
         """Function to calculate the standard deviation from p and n.
         
         Args: 
@@ -88,7 +104,12 @@ class Binomial(Distribution):
         
         
     def replace_stats_with_data(self):
-    
+
+        self.n = len(self.data)
+        self.p = 1.0 * sum(self.data) / len(self.data)
+        self.mean = self.calculate_mean()
+        self.stdev = self.calculate_stdev()
+        
         """Function to calculate p and n from the data set
         
         Args: 
@@ -120,6 +141,12 @@ class Binomial(Distribution):
         pass
         
     def plot_bar(self):
+
+        plt.bar(x = ['0', '1'], height = [(1 - self.p) * self.n, self.p * self.n])
+        plt.title ('Bar chart of Data')
+        plt.xlabel ('outcome')
+        plt.ylabel ('count')
+
         """Function to output a histogram of the instance variable data using 
         matplotlib pyplot library.
         
@@ -144,6 +171,12 @@ class Binomial(Distribution):
         pass        
         
     def pdf(self, k):
+
+        a = math.factorial(self.n) / (math.factorial(k) * (math.factorial(self.n - k)))
+        b = (self.p ** k) * (1 - self.p) ** (self.n - k)
+
+        return a * b
+
         """Probability density function calculator for the gaussian distribution.
         
         Args:
@@ -165,6 +198,27 @@ class Binomial(Distribution):
         pass        
 
     def plot_bar_pdf(self):
+
+        x = []
+        y = []
+        
+        # Calculate x to visualize
+
+        for i in range(self.n + 1):
+            x.append(i)
+            y.append(self.pdf(i))
+
+        #make the plots
+        plt.bar(x, y)
+        plt.title('Distribution of Outcomes')
+        plt.ylabel('Probability')
+        plt.xlabel('Outcome')
+
+        plt.show()
+
+        return x, y
+
+         
 
         """Function to plot the pdf of the binomial distribution
         
@@ -205,6 +259,14 @@ class Binomial(Distribution):
         except AssertionError as error:
             raise
         
+        result = Binomial()
+        result.n = self.n + other.n
+        result.p = self.p
+        result.calculate_mean()
+        result.calculate_stdev()
+
+        return result
+
         # TODO: Define addition for two binomial distributions. Assume that the
         # p values of the two distributions are the same. The formula for 
         # summing two binomial distributions with different p values is more complicated,
@@ -223,6 +285,9 @@ class Binomial(Distribution):
         
         
     def __repr__(self):
+
+        return "mean {}, standard deviation {}, p {}, n {}".\
+        format (self.mean, self.stdev, self.p, self.n)
     
         """Function to output the characteristics of the Binomial instance
         
