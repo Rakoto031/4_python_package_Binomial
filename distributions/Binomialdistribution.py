@@ -1,13 +1,9 @@
-from audioop import avg
 import math
 import matplotlib.pyplot as plt
 from .Generaldistribution import Distribution
 
 class Binomial(Distribution):
-    def __init__(self, mu=0, sigma=1):
-        
-        Distribution.__init__(self, mu, sigma)
-
+   
     """ Binomial distribution class for calculating and 
     visualizing a Binomial distribution.
     
@@ -109,6 +105,8 @@ class Binomial(Distribution):
         self.p = 1.0 * sum(self.data) / len(self.data)
         self.mean = self.calculate_mean()
         self.stdev = self.calculate_stdev()
+
+        return self.n, self.p
         
         """Function to calculate p and n from the data set
         
