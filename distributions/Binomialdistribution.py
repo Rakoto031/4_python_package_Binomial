@@ -34,8 +34,8 @@ class Binomial(Distribution):
     
     def __init__(self, prob=.5, size=20):
         
-        self.p = prob
         self.n = size
+        self.p = prob
         
         Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
@@ -73,7 +73,7 @@ class Binomial(Distribution):
         # TODO: calculate the mean of the Binomial distribution. Store the mean
         #       via the self variable and also return the new mean value
                 
-        pass 
+        
 
 
 
@@ -106,7 +106,7 @@ class Binomial(Distribution):
         self.mean = self.calculate_mean()
         self.stdev = self.calculate_stdev()
 
-        return self.n, self.p
+        return self.p, self.n
         
         """Function to calculate p and n from the data set
         
@@ -136,7 +136,7 @@ class Binomial(Distribution):
         #
         #       Hint: You can use the calculate_mean() and calculate_stdev() methods
         #           defined previously.
-        pass
+        
         
     def plot_bar(self):
 
@@ -166,7 +166,7 @@ class Binomial(Distribution):
         #       1 on the x-axis and 20 on the y-axis
         
         #       Make sure to label the chart with a title, x-axis label and y-axis label
-        pass        
+          
         
     def pdf(self, k):
 
@@ -193,7 +193,7 @@ class Binomial(Distribution):
         #   For example, if you flip a coin n = 60 times, with p = .5,
         #   what's the likelihood that the coin lands on heads 40 out of 60 times?
         
-        pass        
+                
 
     def plot_bar_pdf(self):
 
@@ -279,7 +279,7 @@ class Binomial(Distribution):
         #   When adding two binomial distributions, the p value remains the same
         #   The new n value is the sum of the n values of the two distributions.
                 
-        pass
+        
         
         
     def __repr__(self):
@@ -303,4 +303,4 @@ class Binomial(Distribution):
         #       with the values replaced by whatever the actual distributions values are
         #       The method should return a string in the expected format
     
-        pass
+        
