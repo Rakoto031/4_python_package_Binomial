@@ -36,39 +36,13 @@ class Binomial(Distribution):
         
         self.n = size
         self.p = prob
-        
-        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
-        # TODO: store the probability of the distribution in an instance variable p
-        # TODO: store the size of the distribution in an instance variable n
-        
-        # TODO: Now that you know p and n, you can calculate the mean and standard deviation
-        #       Use the calculate_mean() and calculate_stdev() methods to calculate the
-        #       distribution mean and standard deviation
-        #
-        #       Then use the init function from the Distribution class to initialize the
-        #       mean and the standard deviation of the distribution
-        #
-        #       Hint: You need to define the calculate_mean() and calculate_stdev() methods
-        #               farther down in the code starting in line 55. 
-        #               The init function can get access to these methods via the self
-        #               variable.   
-        pass            
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())            
     
     def calculate_mean(self):
        
         self.mean = self.p * self.n
         return self.mean
-    
-        """Function to calculate the mean from p and n
-        
-        Args: 
-            None
-        
-        Returns: 
-            float: mean of the data set
-    
-        """
         
         # TODO: calculate the mean of the Binomial distribution. Store the mean
         #       via the self variable and also return the new mean value
@@ -80,22 +54,6 @@ class Binomial(Distribution):
     def calculate_stdev(self):
         self.stdev = math.sqrt(self.n * self.p * (1 - self.p))
         return self.stdev
-
-    
-        """Function to calculate the standard deviation from p and n.
-        
-        Args: 
-            None
-        
-        Returns: 
-            float: standard deviation of the data set
-    
-        """
-        
-        # TODO: calculate the standard deviation of the Binomial distribution. Store
-        #       the result in the self standard deviation attribute. Return the value
-        #       of the standard deviation.
-        pass
         
         
         
@@ -106,18 +64,7 @@ class Binomial(Distribution):
         self.mean = self.calculate_mean()
         self.stdev = self.calculate_stdev()
 
-        return self.p, self.n
-        
-        """Function to calculate p and n from the data set
-        
-        Args: 
-            None
-        
-        Returns: 
-            float: the p value
-            float: the n value
-    
-        """        
+        return self.p, self.n        
         
         # TODO: The read_data_file() from the Generaldistribution class can read in a data
         #       file. Because the Binomaildistribution class inherits from the Generaldistribution class,
@@ -174,16 +121,6 @@ class Binomial(Distribution):
         b = (self.p ** k) * (1 - self.p) ** (self.n - k)
 
         return a * b
-
-        """Probability density function calculator for the gaussian distribution.
-        
-        Args:
-            k (float): point for calculating the probability density function
-            
-        
-        Returns:
-            float: probability density function output
-        """
         
         # TODO: Calculate the probability density function for a binomial distribution
         #  For a binomial distribution with n trials and probability p, 
@@ -199,7 +136,7 @@ class Binomial(Distribution):
 
         x = []
         y = []
-        
+
         # Calculate x to visualize
 
         for i in range(self.n + 1):
@@ -215,19 +152,6 @@ class Binomial(Distribution):
         plt.show()
 
         return x, y
-
-         
-
-        """Function to plot the pdf of the binomial distribution
-        
-        Args:
-            None
-        
-        Returns:
-            list: x values for the pdf plot
-            list: y values for the pdf plot
-            
-        """
     
         # TODO: Use a bar chart to plot the probability density function from
         # k = 0 to k = n
@@ -241,7 +165,7 @@ class Binomial(Distribution):
         #   The x and y values should be stored in separate lists
                 
     def __add__(self, other):
-        
+
         """Function to add together two Binomial distributions with equal p
         
         Args:
@@ -251,12 +175,12 @@ class Binomial(Distribution):
             Binomial: Binomial distribution
             
         """
-        
+
         try:
             assert self.p == other.p, 'p values are not equal'
         except AssertionError as error:
             raise
-        
+
         result = Binomial()
         result.n = self.n + other.n
         result.p = self.p
@@ -284,18 +208,7 @@ class Binomial(Distribution):
         
     def __repr__(self):
 
-        return "mean {}, standard deviation {}, p {}, n {}".\
-        format (self.mean, self.stdev, self.p, self.n)
-    
-        """Function to output the characteristics of the Binomial instance
-        
-        Args:
-            None
-        
-        Returns:
-            string: characteristics of the Gaussian
-        
-        """
+        return f"mean {self.mean}, standard deviation {self.stdev}, p {self.p}, n {self.n}"
         
         # TODO: Define the representation method so that the output looks like
         #       mean 5, standard deviation 4.5, p .8, n 20
